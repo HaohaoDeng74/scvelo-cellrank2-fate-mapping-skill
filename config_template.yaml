@@ -1,0 +1,124 @@
+project:
+  name: scvelo_cellrank2_fate_mapping
+  input_h5ad: data/input.h5ad
+  output_dir: results
+  organism: mouse
+  analysis_level: lineage_subset
+  random_state: 0
+
+metadata:
+  celltype_key: celltype
+  major_celltype_key: major_celltype
+  cluster_key: celltype
+  sample_key: sample
+  condition_key: condition
+  timepoint_key: timepoint
+  batch_key: batch
+  pseudotime_key: null
+
+subset:
+  enabled: true
+  subset_name: myeloid_lineage
+  obs_key: major_celltype
+  include_values:
+    - Monocyte
+    - Macrophage
+    - Neutrophil
+  min_cells_warning: 300
+  min_cells_stop: 100
+
+preprocessing:
+  recompute_pca_neighbors_umap: true
+  n_hvgs: 3000
+  n_pcs: 30
+  n_neighbors: 30
+  random_state: 0
+
+qc:
+  unspliced_fraction_warning_low: 0.05
+  unspliced_fraction_warning_high: 0.40
+  min_velocity_genes_warning: 200
+  risky_gene_prefixes:
+    mitochondrial: ["mt-", "MT-"]
+    ribosomal: ["Rpl", "Rps", "RPL", "RPS"]
+    hemoglobin: ["Hb", "Hba", "Hbb", "HBA", "HBB"]
+  risky_gene_exact:
+    cell_cycle: ["Mki67", "Top2a", "Pcna", "MCM2", "MCM3", "MCM4", "MCM5", "MCM6", "MCM7"]
+    stress_ambient: ["Fos", "Jun", "Hspa1a", "Hspa1b", "Ddit3", "Malat1"]
+
+scvelo:
+  enabled: true
+  min_shared_counts: 20
+  n_top_genes: 2000
+  n_pcs: 30
+  n_neighbors: 30
+  mode: dynamical
+  fallback_mode: stochastic
+  n_jobs: 8
+
+cellrank:
+  estimator: GPCCA
+  route_if_no_velocity: connectivity
+  pseudotime_key: null
+  time_key: null
+  velocity_kernel_weight: 0.6
+  connectivity_kernel_weight: 0.4
+  cluster_key: celltype
+  n_states: null
+  n_states_sensitivity:
+    - [4, 8]
+    - [6, 12]
+    - [8, 16]
+  manual_terminal_states: null
+  manual_initial_states: null
+
+driver_genes:
+  top_n_per_lineage: 50
+  trend_genes_per_lineage: 8
+  use_raw: false
+  expression_layer: Ms
+  require_dynamic_trend: true
+  require_marker_or_pathway_support: false
+  min_abs_correlation: 0.1
+  max_q_value: 0.1
+
+gene_trends:
+  time_key: latent_time
+  n_bins: 20
+  gene_sets_gmt: null
+  background: expressed_genes
+
+visualization:
+  basis: umap
+  dpi: 300
+  formats: [png, pdf]
+  color_keys:
+    - celltype
+    - condition
+    - timepoint
+  velocity_qc:
+    show_velocity_length: true
+    show_velocity_confidence: true
+    show_latent_time: true
+    show_phase_portraits: true
+    n_phase_genes: 12
+  cellrank:
+    plot_terminal_states: true
+    plot_initial_states: true
+    plot_fate_probabilities: true
+    plot_each_lineage_separately: true
+    plot_coarse_transition_matrix: true
+  driver_genes:
+    top_n_per_lineage: 20
+    trend_genes_per_lineage: 8
+    plot_dotplot: true
+    plot_heatmap: true
+    plot_gene_trends: true
+  publication:
+    generate_main_figure_plan: true
+    generate_extended_figure_plan: true
+
+report:
+  generate_markdown: true
+  generate_html: false
+  evidence_grading: true
