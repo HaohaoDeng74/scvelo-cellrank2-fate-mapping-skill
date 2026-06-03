@@ -1,0 +1,3 @@
+display_name: scVelo + CellRank2 Fate Mapping
+short_description: Run reproducible RNA velocity and CellRank2 fate-mapping workflows with QC, driver candidates, and reporting.
+default_prompt: Use this skill to analyze an AnnData h5ad with scVelo/CellRank2, validate velocity assumptions, infer fate probabilities, identify fate-associated driver candidates, and generate an evidence-graded computational audit report.
