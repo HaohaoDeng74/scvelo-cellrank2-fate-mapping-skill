@@ -380,64 +380,7 @@ proves fate decision
 
 ---
 
-## 9. CLP 脾脏数据建议
-
-对于 CLP 脾脏单细胞数据，建议优先分析以下轴线：
-
-### 9.1 Erythroid / EMH lineage
-
-关注：
-
-* CLP 是否诱导 extramedullary hematopoiesis
-* 红系成熟或应激红系生成轨迹是否改变
-
-参考 marker：
-
-```text
-Gata1, Klf1, Alas2, Hbb-bs, Hba-a1, Mki67, Top2a
-```
-
-### 9.2 Monocyte–macrophage lineage
-
-关注：
-
-* 炎症单核细胞是否向吞噬、修复或免疫抑制样 macrophage 状态偏移
-* CLP 是否改变髓系状态命运概率
-
-参考 marker：
-
-```text
-Ly6c2, S100a8, S100a9, Lcn2, Il1b, Ccl3, Ccl4, Mrc1, C1qa, C1qb, C1qc
-```
-
-### 9.3 B cell–plasma cell lineage
-
-关注：
-
-* B 细胞是否向 plasmablast / plasma cell 分化增强
-* Ig 相关表达是否受到 CLP 后免疫重塑影响
-
-参考 marker：
-
-```text
-Ms4a1, Cd79a, Cd74, Mzb1, Jchain, Xbp1, Prdm1
-```
-
-### 9.4 T cell activation / exhaustion / Treg axis
-
-关注：
-
-* T 细胞是否出现 activation、exhaustion、Treg bias 或长期免疫抑制状态
-
-参考 marker：
-
-```text
-Cd3d, Cd4, Cd8a, Il7r, Ccr7, Mki67, Pdcd1, Lag3, Havcr2, Foxp3, Il2ra, Ctla4
-```
-
----
-
-## 10. 证据等级
+## 9. 证据等级
 
 自动报告中的 evidence grade 是计算审计等级，不等同于最终论文结论。
 
@@ -457,63 +400,7 @@ velocity 假设失败、细胞群不相关、phase portrait 差、terminal state
 
 ---
 
-## 11. 仓库卫生规则
-
-本仓库不应提交：
-
-```text
-__pycache__/
-*.pyc
-results/
-run_manifest.json
-*.h5ad
-*.loom
-*.h5
-*.log
-```
-
-这些内容已写入 `.gitignore`。
-
-正式发布前建议检查：
-
-```bash
-find . -name "__pycache__" -o -name "*.pyc" -o -name "run_manifest.json" -o -name "results"
-```
-
----
-
-## 12. 当前状态
-
-当前版本定位为：
-
-```text
-release-candidate / internal beta
-```
-
-已完成：
-
-* skill 结构整理
-* YAML frontmatter
-* 配置模板
-* manifest 机制
-* velocity / non-velocity route
-* driver candidate 分析
-* gene trend 基础分析
-* report 生成
-* smoke test
-* 仓库卫生清理
-
-仍建议在正式用于论文分析前完成：
-
-* 使用真实或半真实 `.h5ad` 跑通完整 `00-06` 流程
-* 确认 CellRank2 版本兼容性
-* 检查 fate probabilities、terminal states、driver candidates 是否真实生成
-* 结合 marker、timepoint、DEG/pathway、流式、空间组或文献进行人工解释
-* 不将自动报告直接作为论文结论
-
----
-
-## 13. 推荐引用与方法依据
+## 10. 推荐引用与方法依据
 
 本 workflow 的分析逻辑主要基于：
 
@@ -524,7 +411,7 @@ release-candidate / internal beta
 
 ---
 
-## 14. 免责声明
+## 11. 免责声明
 
 本工具用于科研分析辅助和假设生成。自动输出的 trajectory、terminal states、fate probabilities 和 driver candidates 均需要结合生物学背景、样本设计、技术质量、批次结构和实验验证进行解释。
 
